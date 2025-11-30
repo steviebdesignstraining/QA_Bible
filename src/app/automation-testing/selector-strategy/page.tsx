@@ -1,0 +1,259 @@
+export default function Page() {
+  return (
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">Selector Strategy</h1>
+
+      <p className="mb-4">
+        Selector strategy involves choosing reliable element locators for test automation. Good selectors are stable, unique, and maintainable, reducing test flakiness and maintenance effort.
+      </p>
+
+      <div className="bg-blue-100 dark:bg-blue-900 border-l-4 border-blue-500 p-4 mb-4">
+        <p className="font-semibold text-gray-900 dark:text-gray-100">🟦 Info:</p>
+        <p className="text-gray-700 dark:text-gray-300">The best selectors are unique, stable, and readable. They should work across different environments and UI changes.</p>
+      </div>
+
+      <h2 className="text-2xl font-semibold mb-4">Selector Hierarchy (Best to Worst)</h2>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4 text-center">
+        <code>{`1. ID (Best - Most Stable)
+   ↓
+2. Name Attribute
+   ↓
+3. Data Attributes (data-test, data-cy)
+   ↓
+4. CSS Class (Unique combinations)
+   ↓
+5. Link Text / Partial Link Text
+   ↓
+6. Tag Name + Attributes
+   ↓
+7. XPath (Last Resort - Brittle)`}</code>
+      </pre>
+
+      <div className="bg-green-100 dark:bg-green-900 border-l-4 border-green-500 p-4 mb-4">
+        <p className="font-semibold text-gray-900 dark:text-gray-100">🟩 Example:</p>
+        <p className="text-gray-700 dark:text-gray-300">Use data-testid="submit-button" instead of XPath like //div[2]/button[1] which breaks with any UI change.</p>
+      </div>
+
+      <h2 className="text-2xl font-semibold mb-4">Best Practices for Selectors</h2>
+
+      <h3 className="text-xl font-semibold mb-2">1. Use Data Attributes</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// HTML with test attributes
+<button data-testid="login-submit" type="submit">
+  Sign In
+</button>
+
+// Selector usage
+await page.click('[data-testid="login-submit"]');
+
+// Multiple data attributes
+<input data-test="username" data-automation="user-input" />
+
+// CSS selector
+[data-test="username"]`}</code>
+      </pre>
+
+      <h3 className="text-xl font-semibold mb-2">2. Leverage IDs When Available</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Unique ID (preferred)
+await page.fill('#username', 'test@example.com');
+
+// Multiple elements with same ID (avoid)
+await page.fill('#username >> nth=0', 'test@example.com'); // First one
+await page.fill('#username >> nth=1', 'test@example.com'); // Second one`}</code>
+      </pre>
+
+      <h3 className="text-xl font-semibold mb-2">3. Combine Multiple Attributes</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// More specific selectors
+await page.click('button[type="submit"][data-action="login"]');
+
+// CSS class combinations
+await page.click('.btn.btn-primary.login-submit');
+
+// Role-based selection
+await page.click('button[role="button"][aria-label="Submit"]');`}</code>
+      </pre>
+
+      <div className="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 p-4 mb-4">
+        <p className="font-semibold text-gray-900 dark:text-gray-100">🟧 Warning:</p>
+        <p className="text-gray-700 dark:text-gray-300">Avoid using auto-generated IDs or classes that change with each build. They create brittle tests that break frequently.</p>
+      </div>
+
+      <h2 className="text-2xl font-semibold mb-4">Common Selector Patterns</h2>
+
+      <h3 className="text-xl font-semibold mb-2">Text-Based Selectors</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Exact text match
+await page.click('text="Sign In"');
+
+// Partial text match
+await page.click('text=/Welcome.*/');
+
+// Case insensitive
+await page.click('text=/sign in/i');`}</code>
+      </pre>
+
+      <h3 className="text-xl font-semibold mb-2">CSS Selectors</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Attribute selectors
+input[type="email"]
+button[class*="primary"]
+div[id^="user-"]
+
+// Combinators
+form.login input[name="username"]
+.nav > .menu-item.active
+.card .title + .description
+
+// Pseudo-classes
+button:not([disabled])
+input:required
+li:nth-child(2)`}</code>
+      </pre>
+
+      <h3 className="text-xl font-semibold mb-2">XPath Selectors (Use Sparingly)</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Absolute path (brittle)
+//html/body/div[1]/div[2]/button
+
+// Relative path (better)
+//button[contains(@class, 'submit')]
+
+// With predicates
+//input[@type='email' and @required]
+
+// Following siblings
+//label[text()='Username']/following-sibling::input`}</code>
+      </pre>
+
+      <h2 className="text-2xl font-semibold mb-4">Advanced Selector Techniques</h2>
+
+      <h3 className="text-xl font-semibold mb-2">Playwright Locators</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Chaining locators
+await page.locator('article').locator('button').click();
+
+// Filtering
+await page.locator('button').filter({ hasText: 'Submit' }).click();
+
+// Relative positioning
+await page.locator('text="Username"').locator('xpath=following-sibling::input').fill('user');
+
+// Get by role
+await page.getByRole('button', { name: 'Sign in' }).click();
+
+// Get by label
+await page.getByLabel('Email address').fill('test@example.com');`}</code>
+      </pre>
+
+      <h3 className="text-xl font-semibold mb-2">Selenium WebDriver</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// By strategies
+By.id("username")
+By.name("email")
+By.className("btn-primary")
+By.cssSelector("[data-test='submit']")
+By.xpath("//button[@type='submit']")
+By.linkText("Forgot Password")
+By.partialLinkText("Forgot")
+
+// Fluent API
+driver.findElement(By.cssSelector("input[name='username']"))
+      .sendKeys("test@example.com");`}</code>
+      </pre>
+
+      <h2 className="text-2xl font-semibold mb-4">Selector Maintenance Strategy</h2>
+
+      <h3 className="text-xl font-semibold mb-2">1. Page Object Updates</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Centralized selector management
+class LoginPage {
+  // Update selectors in one place
+  get usernameField() {
+    return '[data-testid="username-input"]';
+  }
+
+  get passwordField() {
+    return '[data-testid="password-input"]';
+  }
+
+  get submitButton() {
+    return '[data-testid="login-submit"]';
+  }
+}`}</code>
+      </pre>
+
+      <h3 className="text-xl font-semibold mb-2">2. Selector Validation</h3>
+      <pre className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4">
+        <code>{`// Validate selectors exist
+async function validateSelectors(page) {
+  const selectors = [
+    '[data-testid="username"]',
+    '[data-testid="password"]',
+    '[data-testid="submit"]'
+  ];
+
+  for (const selector of selectors) {
+    const element = await page.locator(selector);
+    if (await element.count() === 0) {
+      throw new Error('Selector not found: ' + selector);
+    }
+  }
+}`}</code>
+      </pre>
+
+      <div className="bg-purple-100 dark:bg-purple-900 border-l-4 border-purple-500 p-4 mb-4">
+        <p className="font-semibold text-gray-900 dark:text-gray-100">🟪 Key Tip:</p>
+        <p className="text-gray-700 dark:text-gray-300">Work with developers to add data-testid attributes during development. This creates a test-friendly application from the start.</p>
+      </div>
+
+      <h2 className="text-2xl font-semibold mb-4">Handling Dynamic Elements</h2>
+
+      <h3 className="text-xl font-semibold mb-2">Generated IDs</h3>
+      <p className="mb-4">
+        Avoid using auto-generated IDs like "btn-12345" as they change with each page load. Instead, use stable data attributes or partial ID matching.
+      </p>
+
+      <h3 className="text-xl font-semibold mb-2">Dynamic Classes</h3>
+      <p className="mb-4">
+        Classes like "menu-item active random-123" can change. Use stable selectors like data-menu-item="home" or partial class matching with [class*="menu-item"].
+      </p>
+
+      <h2 className="text-2xl font-semibold mb-4">Cross-Browser Considerations</h2>
+      <ul className="list-disc list-inside mb-4">
+        <li>Not all CSS selectors work in all browsers</li>
+        <li>XPath support varies between browsers</li>
+        <li>Some attributes may not be available in certain contexts</li>
+        <li>Test selectors across target browsers</li>
+        <li>Use browser-specific fallbacks when necessary</li>
+      </ul>
+
+      <h2 className="text-2xl font-semibold mb-4">Performance Optimization</h2>
+      <ul className="list-disc list-inside mb-4">
+        <li>Use IDs when possible (fastest)</li>
+        <li>Avoid complex XPath expressions</li>
+        <li>Prefer CSS selectors over XPath</li>
+        <li>Cache frequently used elements</li>
+        <li>Use specific selectors to reduce search scope</li>
+      </ul>
+
+      <h2 className="text-2xl font-semibold mb-4">Common Mistakes</h2>
+      <ul className="list-disc list-inside mb-4">
+        <li>Using brittle XPath expressions</li>
+        <li>Relying on auto-generated attributes</li>
+        <li>Not testing selectors across environments</li>
+        <li>Hardcoding element positions</li>
+        <li>Ignoring accessibility attributes</li>
+      </ul>
+
+      <h2 className="text-2xl font-semibold mb-4">Resources</h2>
+      <ul className="list-disc list-inside mb-4">
+        <li><a href="https://playwright.dev/docs/locators" className="text-blue-600 hover:underline">Playwright Locators</a></li>
+        <li><a href="https://www.selenium.dev/documentation/webdriver/elements/locators/" className="text-blue-600 hover:underline">Selenium Locators</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors" className="text-blue-600 hover:underline">CSS Selectors Reference</a></li>
+        <li><a href="https://www.w3.org/TR/xpath-31/" className="text-blue-600 hover:underline">XPath Specification</a></li>
+      </ul>
+    </div>
+  )
+}

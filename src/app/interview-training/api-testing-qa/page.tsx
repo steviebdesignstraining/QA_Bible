@@ -1,0 +1,366 @@
+"use client"
+
+import { useState, useEffect } from "react"
+
+export default function Page() {
+  const [activeLetter, setActiveLetter] = useState<string>("A")
+
+  const categories = {
+    "A": {
+      title: "API Basics",
+      questions: [
+        { q: "What is an API?", a: "API (Application Programming Interface) is a set of rules and protocols for accessing a web-based software application." },
+        { q: "What is API testing?", a: "API testing validates the functionality, reliability, performance, and security of APIs." },
+        { q: "What are the advantages of API testing?", a: "Faster than UI testing, language-independent, tests core functionality, and can be automated easily." },
+        { q: "What is REST?", a: "REST (Representational State Transfer) is an architectural style for designing networked applications." },
+        { q: "What is RESTful API?", a: "A RESTful API follows REST principles with stateless operations and standard HTTP methods." },
+        { q: "What is SOAP?", a: "SOAP (Simple Object Access Protocol) is a protocol for exchanging structured information in web services." },
+        { q: "What is GraphQL?", a: "GraphQL is a query language for APIs that allows clients to request exactly the data they need." },
+        { q: "What is the difference between REST and SOAP?", a: "REST is lightweight and uses HTTP, SOAP is protocol-heavy with XML and can use different protocols." },
+        { q: "What is an endpoint?", a: "An endpoint is a specific URL where an API can be accessed." },
+        { q: "What is a resource?", a: "A resource is any object or data that can be accessed via the API." },
+        { q: "What is a URI?", a: "URI (Uniform Resource Identifier) uniquely identifies a resource." },
+        { q: "What is a URL?", a: "URL (Uniform Resource Locator) specifies the location of a resource." },
+        { q: "What is a URN?", a: "URN (Uniform Resource Name) identifies a resource by name." },
+        { q: "What is HATEOAS?", a: "HATEOAS (Hypermedia As The Engine Of Application State) provides links in responses." },
+        { q: "What is API versioning?", a: "API versioning manages changes while maintaining backward compatibility." },
+        { q: "What is semantic versioning?", a: "Semantic versioning uses MAJOR.MINOR.PATCH format for version numbers." },
+        { q: "What is API documentation?", a: "API documentation describes endpoints, parameters, and responses." },
+        { q: "What is Swagger/OpenAPI?", a: "Swagger/OpenAPI is a specification for documenting REST APIs." },
+        { q: "What is API blueprint?", a: "API Blueprint is a documentation format for APIs." },
+        { q: "What is RAML?", a: "RAML (RESTful API Modeling Language) describes REST APIs." },
+        { q: "What is OAS?", a: "OAS (OpenAPI Specification) is a standard for REST API documentation." },
+        { q: "What is API linting?", a: "API linting checks API specifications for issues." },
+      ]
+    },
+    "B": {
+      title: "HTTP & Status Codes",
+      questions: [
+        { q: "What are HTTP methods?", a: "GET (retrieve), POST (create), PUT (update), PATCH (partial update), DELETE (remove), HEAD, OPTIONS." },
+        { q: "What is the difference between PUT and PATCH?", a: "PUT replaces the entire resource, PATCH applies partial modifications." },
+        { q: "What is idempotent?", a: "Idempotent operations produce the same result regardless of how many times they are executed." },
+        { q: "Which HTTP methods are idempotent?", a: "GET, PUT, DELETE, HEAD, and OPTIONS are idempotent; POST and PATCH are not." },
+        { q: "What are HTTP status codes?", a: "1xx (informational), 2xx (success), 3xx (redirection), 4xx (client error), 5xx (server error)." },
+        { q: "What is status code 200?", a: "200 OK indicates successful request." },
+        { q: "What is status code 201?", a: "201 Created indicates successful resource creation." },
+        { q: "What is status code 400?", a: "400 Bad Request indicates malformed request." },
+        { q: "What is status code 401?", a: "401 Unauthorized indicates authentication required." },
+        { q: "What is status code 403?", a: "403 Forbidden indicates authentication succeeded but authorization failed." },
+        { q: "What is status code 404?", a: "404 Not Found indicates resource not found." },
+        { q: "What is status code 500?", a: "500 Internal Server Error indicates server-side error." },
+        { q: "What are headers?", a: "Headers provide additional information about the request or response." },
+        { q: "What is Content-Type header?", a: "Content-Type specifies the media type of the resource (e.g., application/json)." },
+        { q: "What is Accept header?", a: "Accept specifies the media types the client can process." },
+        { q: "What is Authorization header?", a: "Authorization contains credentials for authentication." },
+        { q: "What is User-Agent header?", a: "User-Agent identifies the client making the request." },
+        { q: "What are query parameters?", a: "Query parameters are key-value pairs appended to the URL after '?'." },
+        { q: "What is path parameter?", a: "Path parameter is part of the URL path that identifies a specific resource." },
+        { q: "What is request body?", a: "Request body contains data sent with POST, PUT, or PATCH requests." },
+        { q: "What is response body?", a: "Response body contains the data returned by the API." },
+      ]
+    },
+    "C": {
+      title: "Authentication & Security",
+      questions: [
+        { q: "What is authentication?", a: "Authentication verifies the identity of a user or system." },
+        { q: "What is authorization?", a: "Authorization determines what actions an authenticated user can perform." },
+        { q: "What is Basic Authentication?", a: "Basic Authentication sends username and password encoded in Base64." },
+        { q: "What is Bearer Token Authentication?", a: "Bearer Token uses a token (usually JWT) in the Authorization header." },
+        { q: "What is OAuth?", a: "OAuth is an open standard for access delegation." },
+        { q: "What is OAuth 2.0?", a: "OAuth 2.0 is the latest version with improved security and flows." },
+        { q: "What is JWT?", a: "JWT (JSON Web Token) is a compact way to represent claims between parties." },
+        { q: "What is API key authentication?", a: "API key authentication uses a unique key for identification." },
+        { q: "What is rate limiting?", a: "Rate limiting controls the number of requests a client can make in a time period." },
+        { q: "What is throttling?", a: "Throttling slows down the rate of requests to prevent overload." },
+        { q: "What is API security testing?", a: "API security testing identifies vulnerabilities and ensures proper authentication/authorization." },
+        { q: "What is input validation?", a: "Input validation ensures data meets specified criteria before processing." },
+        { q: "What is SQL injection?", a: "SQL injection occurs when malicious SQL is inserted into queries." },
+        { q: "What is XSS?", a: "XSS (Cross-Site Scripting) injects malicious scripts into web pages." },
+        { q: "What is CSRF?", a: "CSRF (Cross-Site Request Forgery) tricks users into performing unwanted actions." },
+        { q: "What is CORS?", a: "CORS (Cross-Origin Resource Sharing) controls cross-origin requests." },
+        { q: "What is API gateway?", a: "API gateway manages, secures, and routes API requests." },
+        { q: "What is API firewall?", a: "API firewall protects APIs from malicious traffic." },
+        { q: "What is API security?", a: "API security protects APIs from unauthorized access and attacks." },
+        { q: "What is API penetration testing?", a: "API penetration testing simulates attacks to find vulnerabilities." },
+        { q: "What is API vulnerability scanning?", a: "API vulnerability scanning automatically detects security issues." },
+        { q: "What is API threat modeling?", a: "API threat modeling identifies potential security threats." },
+        { q: "What is API risk assessment?", a: "API risk assessment evaluates potential security risks." },
+        { q: "What is API security posture?", a: "API security posture measures overall API security health." },
+        { q: "What is API authentication testing?", a: "API authentication testing verifies identity verification mechanisms." },
+        { q: "What is API authorization testing?", a: "API authorization testing verifies access control mechanisms." },
+        { q: "What is API input validation testing?", a: "API input validation testing checks data sanitization and validation." },
+        { q: "What is API output encoding testing?", a: "API output encoding testing prevents injection attacks." },
+        { q: "What is API error handling testing?", a: "API error handling testing verifies proper error responses." },
+        { q: "What is API logging testing?", a: "API logging testing ensures proper audit trail generation." },
+        { q: "What is API monitoring testing?", a: "API monitoring testing validates monitoring and alerting systems." },
+      ]
+    },
+    "D": {
+      title: "Data & Formats",
+      questions: [
+        { q: "What is JSON?", a: "JSON (JavaScript Object Notation) is a lightweight data interchange format." },
+        { q: "What is XML?", a: "XML (Extensible Markup Language) is a markup language for encoding documents." },
+        { q: "What is the difference between JSON and XML?", a: "JSON is lightweight and JavaScript-native, XML is more verbose but supports complex structures." },
+        { q: "What is schema validation?", a: "Schema validation ensures response structure matches expected format." },
+        { q: "What is JSON Schema?", a: "JSON Schema defines the structure of JSON data." },
+        { q: "What is pagination?", a: "Pagination divides large result sets into smaller chunks." },
+        { q: "What is filtering?", a: "Filtering allows clients to retrieve only specific data." },
+        { q: "What is sorting?", a: "Sorting arranges results in a specific order." },
+      ]
+    },
+    "E": {
+      title: "Tools & Testing",
+      questions: [
+        { q: "What is Postman?", a: "Postman is a tool for API development and testing with a GUI." },
+        { q: "What is Insomnia?", a: "Insomnia is an open-source REST client for API testing." },
+        { q: "What is cURL?", a: "cURL is a command-line tool for transferring data with URLs." },
+        { q: "What is Newman?", a: "Newman is a command-line runner for Postman collections." },
+        { q: "What is REST Assured?", a: "REST Assured is a Java DSL for testing REST services." },
+        { q: "What is Supertest?", a: "Supertest is a library for testing HTTP endpoints in Node.js." },
+        { q: "What is Karate?", a: "Karate is an open-source tool for API test automation." },
+        { q: "What is API mocking?", a: "API mocking creates fake API responses for testing." },
+        { q: "What is WireMock?", a: "WireMock is a library for stubbing and mocking HTTP services." },
+        { q: "What is contract testing?", a: "Contract testing verifies that APIs meet agreed specifications." },
+        { q: "What is Pact?", a: "Pact is a code-first consumer-driven contract testing tool." },
+        { q: "What is API testing framework?", a: "API testing framework provides tools and structure for API testing." },
+        { q: "What is API test automation?", a: "API test automation uses scripts to automatically test APIs." },
+        { q: "What is continuous API testing?", a: "Continuous API testing integrates API tests into CI/CD pipelines." },
+        { q: "What is API regression testing?", a: "API regression testing ensures API changes don't break existing functionality." },
+        { q: "What is API smoke testing?", a: "API smoke testing verifies basic API functionality." },
+        { q: "What is API sanity testing?", a: "API sanity testing checks specific API areas after changes." },
+        { q: "What is API exploratory testing?", a: "API exploratory testing manually explores API behavior." },
+        { q: "What is API fuzz testing?", a: "API fuzz testing sends random data to find vulnerabilities." },
+        { q: "What is API mutation testing?", a: "API mutation testing modifies API calls to test error handling." },
+        { q: "What is API chaos testing?", a: "API chaos testing intentionally introduces failures to test resilience." },
+        { q: "What is API boundary testing?", a: "API boundary testing tests input limits and edge cases." },
+        { q: "What is API negative testing?", a: "API negative testing tests with invalid inputs." },
+        { q: "What is API positive testing?", a: "API positive testing tests with valid inputs." },
+        { q: "What is API destructive testing?", a: "API destructive testing tests system behavior under failure conditions." },
+      ]
+    },
+    "F": {
+      title: "Performance & Monitoring",
+      questions: [
+        { q: "What is API performance testing?", a: "API performance testing measures response times and throughput." },
+        { q: "What is load testing for APIs?", a: "Load testing simulates multiple users accessing the API simultaneously." },
+        { q: "What is stress testing for APIs?", a: "Stress testing pushes APIs beyond normal limits to find breaking points." },
+        { q: "What is API load testing?", a: "API load testing simulates multiple users to test performance." },
+        { q: "What is API stress testing?", a: "API stress testing pushes APIs beyond normal limits." },
+        { q: "What is API spike testing?", a: "API spike testing tests sudden load increases." },
+        { q: "What is API volume testing?", a: "API volume testing tests with large data sets." },
+        { q: "What is API soak testing?", a: "API soak testing tests stability over extended periods." },
+        { q: "What is API concurrency testing?", a: "API concurrency testing tests multiple simultaneous requests." },
+        { q: "What is API race condition testing?", a: "API race condition testing checks for timing-related issues." },
+        { q: "What is API monitoring?", a: "API monitoring tracks API performance, availability, and usage." },
+        { q: "What is API analytics?", a: "API analytics provides insights into API usage and performance." },
+        { q: "What is API metrics?", a: "API metrics measure API health and usage statistics." },
+        { q: "What is API KPIs?", a: "API KPIs (Key Performance Indicators) measure API success." },
+        { q: "What is API SLAs?", a: "API SLAs (Service Level Agreements) define performance guarantees." },
+        { q: "What is API uptime?", a: "API uptime measures percentage of time API is available." },
+        { q: "What is API latency?", a: "API latency measures response time." },
+        { q: "What is API throughput?", a: "API throughput measures requests processed per unit time." },
+        { q: "What is API error rate?", a: "API error rate measures percentage of failed requests." },
+        { q: "What is API success rate?", a: "API success rate measures percentage of successful requests." },
+        { q: "What is API availability?", a: "API availability measures uptime and reliability." },
+        { q: "What is API reliability?", a: "API reliability measures consistent performance." },
+        { q: "What is API durability?", a: "API durability measures data persistence." },
+        { q: "What is API consistency?", a: "API consistency ensures data accuracy across systems." },
+        { q: "What is API partition tolerance?", a: "API partition tolerance maintains operation during network failures." },
+        { q: "What is CAP theorem?", a: "CAP theorem states that distributed systems can only guarantee 2 of 3: Consistency, Availability, Partition tolerance." },
+        { q: "What is API eventual consistency?", a: "API eventual consistency allows temporary inconsistency that resolves over time." },
+        { q: "What is API strong consistency?", a: "API strong consistency ensures immediate data consistency across all nodes." },
+        { q: "What is API caching?", a: "API caching stores frequently accessed data for faster retrieval." },
+        { q: "What is API CDN?", a: "API CDN (Content Delivery Network) distributes API responses geographically." },
+        { q: "What is API edge computing?", a: "API edge computing processes data closer to users." },
+      ]
+    },
+    "G": {
+      title: "Design & Architecture",
+      questions: [
+        { q: "What is API-first development?", a: "API-first development designs APIs before implementing applications." },
+        { q: "What is design-first approach?", a: "Design-first creates API specifications before implementation." },
+        { q: "What is code-first approach?", a: "Code-first generates API documentation from code." },
+        { q: "What is API testing pyramid?", a: "API testing pyramid: Unit tests at base, integration tests in middle, contract tests at top." },
+        { q: "What is consumer-driven contracts?", a: "Consumer-driven contracts define API expectations from consumer perspective." },
+        { q: "What is provider contracts?", a: "Provider contracts define what the API provider guarantees." },
+        { q: "What is API orchestration?", a: "API orchestration coordinates multiple API calls." },
+        { q: "What is API composition?", a: "API composition combines data from multiple APIs." },
+        { q: "What is microservices?", a: "Microservices is an architectural style with small, independent services." },
+        { q: "What is service mesh?", a: "Service mesh manages communication between microservices." },
+        { q: "What is API virtualization?", a: "API virtualization creates virtual API instances for testing." },
+        { q: "What is service virtualization?", a: "Service virtualization simulates dependent services for testing." },
+        { q: "What is API simulation?", a: "API simulation creates fake API responses for development." },
+        { q: "What is API prototyping?", a: "API prototyping creates early API versions for feedback." },
+        { q: "What is API future-proofing?", a: "API future-proofing designs APIs to accommodate future changes." },
+        { q: "What is API versioning strategy?", a: "API versioning strategy manages API evolution over time." },
+        { q: "What is API deprecation?", a: "API deprecation marks APIs as obsolete with planned removal." },
+        { q: "What is API sunset?", a: "API sunset is the process of phasing out deprecated APIs." },
+        { q: "What is API migration?", a: "API migration moves from old to new API versions." },
+        { q: "What is API transformation?", a: "API transformation converts data between different API formats." },
+        { q: "What is API aggregation?", a: "API aggregation combines data from multiple APIs." },
+        { q: "What is API mediation?", a: "API mediation transforms requests between different API protocols." },
+        { q: "What is API brokering?", a: "API brokering provides unified access to multiple APIs." },
+        { q: "What is API federation?", a: "API federation combines multiple API management domains." },
+        { q: "What is API serverless?", a: "API serverless runs code without managing servers." },
+        { q: "What is API FaaS?", a: "API FaaS (Function as a Service) runs individual functions in response to events." },
+        { q: "What is API BaaS?", a: "API BaaS (Backend as a Service) provides backend services via APIs." },
+        { q: "What is API PaaS?", a: "API PaaS (Platform as a Service) provides platform for API development." },
+        { q: "What is API IaaS?", a: "API IaaS (Infrastructure as a Service) provides virtualized infrastructure." },
+        { q: "What is API SaaS?", a: "API SaaS (Software as a Service) delivers applications via APIs." },
+        { q: "What is API XaaS?", a: "API XaaS (Everything as a Service) delivers any service via APIs." },
+      ]
+    },
+    "H": {
+      title: "Business & Management",
+      questions: [
+        { q: "What is API economy?", a: "API economy monetizes APIs as products." },
+        { q: "What is API as a Product?", a: "Treating APIs as commercial products with proper design and support." },
+        { q: "What is API management?", a: "API management includes design, deployment, security, and monitoring." },
+        { q: "What is API governance?", a: "API governance ensures APIs follow organizational standards." },
+        { q: "What is API operations?", a: "API operations includes monitoring, maintenance, and support." },
+        { q: "What is API catalog?", a: "API catalog is a centralized repository of available APIs." },
+        { q: "What is API discovery?", a: "API discovery helps developers find and understand APIs." },
+        { q: "What is API sandbox?", a: "API sandbox provides a safe environment for testing APIs." },
+        { q: "What is API marketplace?", a: "API marketplace enables discovery and consumption of APIs." },
+        { q: "What is API developer portal?", a: "API developer portal provides tools and documentation for developers." },
+        { q: "What is API developer experience?", a: "API developer experience measures ease of API integration." },
+        { q: "What is API product management?", a: "API product management treats APIs as commercial products." },
+        { q: "What is API business model?", a: "API business model defines how APIs generate revenue." },
+        { q: "What is API monetization?", a: "API monetization generates revenue from API usage." },
+        { q: "What is API freemium model?", a: "API freemium model offers basic features free with premium paid features." },
+        { q: "What is API tiered pricing?", a: "API tiered pricing offers different service levels at different prices." },
+        { q: "What is API usage-based pricing?", a: "API usage-based pricing charges based on actual consumption." },
+        { q: "What is API subscription pricing?", a: "API subscription pricing charges recurring fees for access." },
+        { q: "What is API marketplace commission?", a: "API marketplace commission takes percentage of transactions." },
+        { q: "What is API affiliate program?", a: "API affiliate program rewards partners for API promotion." },
+        { q: "What is API partnership?", a: "API partnership collaborates with other companies for mutual benefit." },
+        { q: "What is API ecosystem?", a: "API ecosystem includes all stakeholders interacting with APIs." },
+        { q: "What is API community?", a: "API community includes developers and users of APIs." },
+        { q: "What is API advocacy?", a: "API advocacy promotes API adoption and best practices." },
+        { q: "What is API evangelism?", a: "API evangelism educates and excites people about APIs." },
+        { q: "What is API storytelling?", a: "API storytelling communicates API value through narratives." },
+        { q: "What is API branding?", a: "API branding creates consistent identity for APIs." },
+        { q: "What is API marketing?", a: "API marketing promotes APIs to potential users." },
+        { q: "What is API sales?", a: "API sales converts leads into paying customers." },
+        { q: "What is API customer success?", a: "API customer success ensures customer satisfaction and retention." },
+        { q: "What is API support?", a: "API support helps users with API integration and issues." },
+        { q: "What is API documentation?", a: "API documentation provides usage instructions and examples." },
+        { q: "What is API tutorials?", a: "API tutorials provide step-by-step learning guides." },
+        { q: "What is API samples?", a: "API samples provide code examples for common use cases." },
+        { q: "What is API SDK?", a: "API SDK (Software Development Kit) provides tools for API integration." },
+        { q: "What is API client library?", a: "API client library simplifies API consumption in specific languages." },
+        { q: "What is API wrapper?", a: "API wrapper provides simplified interface to complex APIs." },
+        { q: "What is API facade?", a: "API facade provides unified interface to multiple APIs." },
+        { q: "What is API proxy?", a: "API proxy acts as intermediary between client and server." },
+        { q: "What is API backup testing?", a: "API backup testing verifies data backup and recovery procedures." },
+        { q: "What is API disaster recovery testing?", a: "API disaster recovery testing validates business continuity plans." },
+        { q: "What is API high availability testing?", a: "API high availability testing verifies uptime and failover mechanisms." },
+        { q: "What is API scalability testing?", a: "API scalability testing verifies ability to handle growth." },
+        { q: "What is API maintainability testing?", a: "API maintainability testing evaluates ease of maintenance." },
+        { q: "What is API portability testing?", a: "API portability testing verifies cross-platform compatibility." },
+        { q: "What is API reusability testing?", a: "API reusability testing evaluates component reusability." },
+        { q: "What is API testability testing?", a: "API testability testing measures ease of testing." },
+        { q: "What is API understandability testing?", a: "API understandability testing evaluates documentation quality." },
+        { q: "What is API learnability testing?", a: "API learnability testing measures ease of learning." },
+        { q: "What is API operability testing?", a: "API operability testing verifies operational procedures." },
+        { q: "What is API attractiveness testing?", a: "API attractiveness testing evaluates user appeal." },
+        { q: "What is API usability testing?", a: "API usability testing measures ease of use." },
+        { q: "What is API accessibility testing?", a: "API accessibility testing ensures usability for all users." },
+        { q: "What is API internationalization testing?", a: "API internationalization testing verifies multi-language support." },
+        { q: "What is API localization testing?", a: "API localization testing verifies specific locale functionality." },
+        { q: "What is API globalization testing?", a: "API globalization testing verifies worldwide compatibility." },
+        { q: "What is the future of APIs?", a: "AI integration, GraphQL adoption, event-driven architectures, and API mesh." },
+      ]
+    }
+  }
+
+  const scrollToCategory = (letter: string) => {
+    setActiveLetter(letter)
+    const element = document.getElementById(`category-${letter}`)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const categoryElements = Object.keys(categories).map(letter =>
+        document.getElementById(`category-${letter}`)
+      ).filter(Boolean)
+
+      for (let i = categoryElements.length - 1; i >= 0; i--) {
+        const element = categoryElements[i]
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 100) {
+            setActiveLetter(element.id.replace('category-', ''))
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">API Testing Q&A</h1>
+      <p className="mb-4">
+        Comprehensive interview questions and answers for API testing roles, covering REST, HTTP, authentication, and tools.
+      </p>
+
+      {/* A-Z Navigation */}
+      <div className="sticky top-0 bg-white dark:bg-gray-900 z-10 border-b border-gray-200 dark:border-gray-700 mb-6 py-4">
+        <div className="flex flex-wrap gap-2 mb-4">
+          {Object.keys(categories).map(letter => (
+            <button
+              key={letter}
+              onClick={() => scrollToCategory(letter)}
+              className={`px-3 py-1 rounded border ${
+                activeLetter === letter
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+            >
+              {letter}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="space-y-8">
+        {Object.entries(categories).map(([letter, category]) => (
+          <div key={letter} id={`category-${letter}`} className="scroll-mt-20">
+            <h2 className="text-2xl font-bold mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+              {letter}: {category.title}
+            </h2>
+            <div className="space-y-4">
+              {category.questions.map((item, index) => (
+                <div key={index} className="border border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                  <h3 className="font-semibold mb-2">Q: {item.q}</h3>
+                  <p className="text-gray-700 dark:text-gray-300">A: {item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Back to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-colors"
+        aria-label="Back to top"
+      >
+        ↑
+      </button>
+    </div>
+  )
+}

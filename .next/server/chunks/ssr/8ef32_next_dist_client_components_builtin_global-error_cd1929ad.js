@@ -1,0 +1,3 @@
+module.exports=[75272,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(13589);a.n(d("[project]/Documents/github/QA_Bible/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},15824,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(13589);a.n(d("[project]/Documents/github/QA_Bible/node_modules/next/dist/client/components/builtin/global-error.js"))},17921,a=>{"use strict";a.i(75272);var b=a.i(15824);a.n(b)}];
+
+//# sourceMappingURL=8ef32_next_dist_client_components_builtin_global-error_cd1929ad.js.map

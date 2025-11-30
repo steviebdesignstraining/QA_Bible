@@ -1,0 +1,22 @@
+module.exports=[93695,(a,b,c)=>{b.exports=a.x("next/dist/shared/lib/no-fallback-error.external.js",()=>require("next/dist/shared/lib/no-fallback-error.external.js"))},17745,a=>{a.n(a.i(59250))},23303,a=>{a.n(a.i(88148))},44896,a=>{a.n(a.i(74740))},46174,a=>{a.n(a.i(83216))},78190,a=>{a.n(a.i(17921))},15844,a=>{"use strict";var b=a.i(64868);function c(){return(0,b.jsxs)("div",{className:"max-w-4xl mx-auto",children:[(0,b.jsx)("h1",{className:"text-3xl font-bold mb-6",children:"Test Cases"}),(0,b.jsx)("p",{className:"mb-4",children:"Test cases are detailed steps to verify software functionality. They ensure features work as expected."}),(0,b.jsxs)("div",{className:"bg-blue-100 dark:bg-blue-900 border-l-4 border-blue-500 p-4 mb-4",children:[(0,b.jsx)("p",{className:"font-semibold text-gray-700 dark:text-gray-300",children:"🟦 Info:"}),(0,b.jsx)("p",{className:"text-gray-700 dark:text-gray-300",children:"Test cases include preconditions, steps, expected results, and actual results."})]}),(0,b.jsx)("h2",{className:"text-2xl font-semibold mb-4",children:"Test Case Structure"}),(0,b.jsxs)("ul",{className:"list-disc list-inside mb-4",children:[(0,b.jsx)("li",{children:"Test Case ID"}),(0,b.jsx)("li",{children:"Test Scenario"}),(0,b.jsx)("li",{children:"Test Steps"}),(0,b.jsx)("li",{children:"Expected Result"}),(0,b.jsx)("li",{children:"Actual Result"}),(0,b.jsx)("li",{children:"Pass/Fail Status"})]}),(0,b.jsxs)("div",{className:"bg-green-100 dark:bg-green-900 border-l-4 border-green-500 p-4 mb-4",children:[(0,b.jsx)("p",{className:"font-semibold text-gray-700 dark:text-gray-300",children:"🟩 Example:"}),(0,b.jsx)("p",{className:"text-gray-700 dark:text-gray-300",children:"Test Case: Login with valid credentials"}),(0,b.jsx)("p",{className:"text-gray-700 dark:text-gray-300",children:"Steps: 1. Open login page 2. Enter username 3. Enter password 4. Click login"}),(0,b.jsx)("p",{className:"text-gray-700 dark:text-gray-300",children:"Expected: User logged in successfully"})]}),(0,b.jsx)("h2",{className:"text-2xl font-semibold mb-4",children:"Types of Test Cases"}),(0,b.jsxs)("ul",{className:"list-disc list-inside mb-4",children:[(0,b.jsx)("li",{children:"Positive test cases"}),(0,b.jsx)("li",{children:"Negative test cases"}),(0,b.jsx)("li",{children:"Edge case test cases"}),(0,b.jsx)("li",{children:"Boundary test cases"})]}),(0,b.jsxs)("div",{className:"bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 p-4 mb-4",children:[(0,b.jsx)("p",{className:"font-semibold text-gray-700 dark:text-gray-300",children:"🟧 Warning:"}),(0,b.jsx)("p",{className:"text-gray-700 dark:text-gray-300",children:"Write clear, unambiguous test steps to avoid confusion."})]}),(0,b.jsx)("h2",{className:"text-2xl font-semibold mb-4",children:"Best Practices"}),(0,b.jsxs)("ol",{className:"list-decimal list-inside mb-4",children:[(0,b.jsx)("li",{children:"Use simple language"}),(0,b.jsx)("li",{children:"Include screenshots"}),(0,b.jsx)("li",{children:"Review with team"}),(0,b.jsx)("li",{children:"Update after changes"})]}),(0,b.jsxs)("div",{className:"bg-purple-100 dark:bg-purple-900 border-l-4 border-purple-500 p-4 mb-4",children:[(0,b.jsx)("p",{className:"font-semibold text-gray-700 dark:text-gray-300",children:"🟪 Key Tip:"}),(0,b.jsx)("p",{className:"text-gray-700 dark:text-gray-300",children:"One test case should test one thing only."})]}),(0,b.jsx)("h2",{className:"text-2xl font-semibold mb-4",children:"Sample Test Case Template"}),(0,b.jsx)("pre",{className:"bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded mb-4",children:(0,b.jsx)("code",{children:`Test Case ID: TC_001
+Title: User Login
+Description: Verify user can login with valid credentials
+Preconditions: User account exists
+Steps:
+1. Navigate to login page
+2. Enter valid email
+3. Enter valid password
+4. Click 'Login' button
+Expected Result: User redirected to dashboard
+Actual Result: [To be filled]
+Status: [Pass/Fail]`})}),(0,b.jsx)("h2",{className:"text-2xl font-semibold mb-4",children:"Test Case Flow"}),(0,b.jsx)("pre",{className:"bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-4 rounded",children:(0,b.jsx)("code",{children:`Start
+  ↓
+Execute Steps
+  ↓
+Compare Expected vs Actual
+  ↓
+Mark Pass or Fail
+  ↓
+Log Results`})})]})}a.s(["default",()=>c])}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__8da3227d._.js.map

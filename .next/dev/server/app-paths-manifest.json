@@ -1,0 +1,14 @@
+{
+  "/api-backend/automation-frameworks/page": "app/api-backend/automation-frameworks/page.js",
+  "/api-backend/security-basics/page": "app/api-backend/security-basics/page.js",
+  "/automation-testing/assertions-waits/page": "app/automation-testing/assertions-waits/page.js",
+  "/automation-testing/ci-cd-basics/page": "app/automation-testing/ci-cd-basics/page.js",
+  "/automation-testing/interview-qa/page": "app/automation-testing/interview-qa/page.js",
+  "/automation-testing/selector-strategy/page": "app/automation-testing/selector-strategy/page.js",
+  "/manual-testing/exploratory-testing/page": "app/manual-testing/exploratory-testing/page.js",
+  "/manual-testing/mindmaps/page": "app/manual-testing/mindmaps/page.js",
+  "/manual-testing/test-design-techniques/page": "app/manual-testing/test-design-techniques/page.js",
+  "/manual-testing/test-scenarios/page": "app/manual-testing/test-scenarios/page.js",
+  "/page": "app/page.js",
+  "/qa-foundations/what-is-qa/page": "app/qa-foundations/what-is-qa/page.js"
+}

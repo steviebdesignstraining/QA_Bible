@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/stephenbennett/Documents/github/QA_Bible/src/app/page.tsx"],"sourcesContent":["export default function Home() {\n  return (\n    <div className=\"max-w-4xl mx-auto\">\n      <h1 className=\"text-4xl font-bold mb-4\">Welcome to The QA Bible</h1>\n      <p className=\"text-lg mb-6\">\n        A complete QA Training Platform built for dyslexic + ADHD learners, with clear navigation, coloured code keys, diagrams, and clean layout.\n      </p>\n      <p className=\"mb-4\">\n        Use the navigation sidebar on the left to explore comprehensive QA topics, from foundations to advanced automation and AI in testing.\n      </p>\n      <p>\n        This platform serves as your personal QA reference library and interview prep guide.\n      </p>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,iRAAC;QAAI,WAAU;;0BACb,iRAAC;gBAAG,WAAU;0BAA0B;;;;;;0BACxC,iRAAC;gBAAE,WAAU;0BAAe;;;;;;0BAG5B,iRAAC;gBAAE,WAAU;0BAAO;;;;;;0BAGpB,iRAAC;0BAAE;;;;;;;;;;;;AAKT"}}]
+}
